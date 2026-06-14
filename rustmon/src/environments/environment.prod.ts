@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  uDataApi: 'https://rustmon-udata.tercerpiso.tech',
+  uDataApi: 'http://localhost:3000',
   version: '1.6.0'
 };
