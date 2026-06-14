@@ -1,39 +1,50 @@
-## Installation
+﻿# RustMon Backend (user-data-srv)
+
+NestJS 10 backend service for RustMon. Provides Steam profile lookups, IP geolocation, and Rustmap integration with Redis caching.
+
+## Stack
+
+- NestJS 10
+- ioredis 5
+- Axios
+- Node 20
+
+## Environment Variables
+
+| Variable | Description |
+|---|---|
+| `STEAM_API` | Steam Web API key |
+| `CACHE_HOST` | Redis host |
+| `CACHE_PORT` | Redis port |
+| `CACHE_AUTH` | Redis password |
+| `CACHE_TTL` | Cache TTL in seconds (default: 604800) |
+
+## Docker
+
+From the repo root:
 
 ```bash
-$ npm install
+docker compose build backend
+docker compose up backend
 ```
 
-## Running the app
+## Local Development
+
+Install dependencies:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install --legacy-peer-deps
 ```
 
-## Test
+Run in development mode:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run start:dev
 ```
 
-## Redis cache:
+Run in production mode:
 
-docker run --name rustmonRedis -p 6379:6379 -d redis redis-server --requirepass 38674516
-
-reiniciar cache:
-
-docker stop rustmonRedis && docker rm rustmonRedis && docker run --name rustmonRedis -p 6379:6379 -d redis redis-server --requirepass 38674516
+```bash
+npm run build
+npm run start:prod
+```

@@ -1,27 +1,45 @@
-# Rustmon
+﻿# RustMon Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.4.
+Angular 19 frontend for RustMon — a Rust game server admin panel.
 
-## Development server
+This app is intended to be built and served via Docker. See the root `docker-compose.yml` for the full stack setup.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Stack
 
-## Code scaffolding
+- Angular 19
+- PrimeNG 19 (Aura dark theme)
+- FontAwesome
+- TypeScript 5.8
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Development
+
+Install dependencies:
+
+```bash
+npm install --legacy-peer-deps
+```
+
+Run local dev server (connects to backend at `http://localhost:3000`):
+
+```bash
+npx ng serve
+```
+
+Navigate to `http://localhost:4200/`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+npx ng build --configuration production
+```
 
-## Running unit tests
+Output goes to `dist/rustmon/browser/`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Docker
 
-## Running end-to-end tests
+The frontend is built and served via nginx. From the repo root:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+docker compose build frontend
+docker compose up frontend
+```
