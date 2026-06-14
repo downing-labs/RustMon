@@ -8,7 +8,7 @@ import { UptimePipe } from './uptime.pipe';
 import { UptimeFixedPipe } from './uptimeFixed.pipe';
 import { PortRemovePipe } from './port-remove.pipe';
 import { TableModule } from 'primeng/table';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
@@ -52,7 +52,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     TableModule,
-    InputSwitchModule,
+    ToggleSwitchModule,
     ContextMenuModule,
     ToastModule,
     ConfirmDialogModule,

@@ -30,6 +30,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public consoleMessages: string[] = [];
   public connectionString: any;
 
+  // pane resizing
+  public paneWidths: number[] = [1, 1, 1];
+  public draggingPane: number | null = null;
+  private dragStartX: number = 0;
+  private dragStartWidths: number[] = [];
+
+  startDrag(event: MouseEvent, paneIndex: number) {
+    this.draggingPane = paneIndex;
+    this.dragStartX = event.clientX;
+    this.dragStartWidths = [...this.paneWidths];
+    event.preventDefault();
+  }
+
+  onDrag(event: MouseEvent) {
+    if (this.draggingPane === null) return;
+    const delta = event.clientX - this.dragStartX;
+    const totalWidth = window.innerWidth;
+    const flexDelta = (delta / totalWidth) * 3;
+    const i = this.draggingPane;
+    const newLeft = Math.max(0.2, this.dragStartWidths[i] + flexDelta);
+    const newRight = Math.max(0.2, this.dragStartWidths[i + 1] - flexDelta);
+    this.paneWidths = [...this.dragStartWidths];
+    this.paneWidths[i] = newLeft;
+    this.paneWidths[i + 1] = newRight;
+  }
+
+  stopDrag() {
+    this.draggingPane = null;
+  }
+
   // flags variables
   public hasInfo = false;
   public hasStack = false;

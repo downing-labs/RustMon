@@ -9,6 +9,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -21,6 +23,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         FontAwesomeModule], providers: [
         MessageService,
         ConfirmationService,
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withInterceptorsFromDi()),
+        providePrimeNG({ theme: { preset: Aura } })
     ] })
 export class AppModule { }
