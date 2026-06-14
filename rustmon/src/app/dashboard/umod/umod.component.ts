@@ -4,9 +4,10 @@ import { RustEvent } from 'src/app/rustRCON/RustEvent';
 import { RustService } from 'src/app/rustRCON/rust.service';
 
 @Component({
-  selector: 'app-umod',
-  templateUrl: './umod.component.html',
-  styleUrls: ['./umod.component.scss']
+    selector: 'app-umod',
+    templateUrl: './umod.component.html',
+    styleUrls: ['./umod.component.scss'],
+    standalone: false
 })
 export class UmodComponent implements OnInit {
 

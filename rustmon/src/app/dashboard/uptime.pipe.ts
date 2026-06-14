@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'uptime'
+    name: 'uptime',
+    standalone: false
 })
 export class UptimePipe implements PipeTransform {
 

@@ -2,9 +2,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PlayerToolsService } from './player-tools.service';
 
 @Component({
-  selector: 'app-player-tools',
-  templateUrl: './player-tools.component.html',
-  styleUrls: ['./player-tools.component.scss']
+    selector: 'app-player-tools',
+    templateUrl: './player-tools.component.html',
+    styleUrls: ['./player-tools.component.scss'],
+    standalone: false
 })
 export class PlayerToolsComponent implements OnInit {
 

@@ -11,9 +11,10 @@ import { Clipboard } from 'src/app/utils/clipboard';
 import { faEyeSlash, faStickyNote, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-players',
-  templateUrl: './players.component.html',
-  styleUrls: ['./players.component.scss']
+    selector: 'app-players',
+    templateUrl: './players.component.html',
+    styleUrls: ['./players.component.scss'],
+    standalone: false
 })
 export class PlayersComponent implements OnInit {
 

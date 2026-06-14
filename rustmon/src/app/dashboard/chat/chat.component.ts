@@ -8,9 +8,10 @@ import { PromptData, PromptService } from '../prompt/prompt.service';
 import { PlayerStorageService } from 'src/app/rustRCON/player-storage.service';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+    selector: 'app-chat',
+    templateUrl: './chat.component.html',
+    styleUrls: ['./chat.component.scss'],
+    standalone: false
 })
 export class ChatComponent implements OnInit {
 

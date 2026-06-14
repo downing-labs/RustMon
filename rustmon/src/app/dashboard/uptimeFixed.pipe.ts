@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'uptimeFixed'
+    name: 'uptimeFixed',
+    standalone: false
 })
 export class UptimeFixedPipe implements PipeTransform {
 

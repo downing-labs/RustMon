@@ -6,9 +6,10 @@ import { RustService } from 'src/app/rustRCON/rust.service';
 import { Clipboard } from 'src/app/utils/clipboard';
 
 @Component({
-  selector: 'app-perms',
-  templateUrl: './perms.component.html',
-  styleUrls: ['./perms.component.scss']
+    selector: 'app-perms',
+    templateUrl: './perms.component.html',
+    styleUrls: ['./perms.component.scss'],
+    standalone: false
 })
 export class PermsComponent implements OnInit {
 

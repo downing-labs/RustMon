@@ -2,9 +2,10 @@ import { PromptService } from './prompt.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-prompt',
-  templateUrl: './prompt.component.html',
-  styleUrls: ['./prompt.component.scss']
+    selector: 'app-prompt',
+    templateUrl: './prompt.component.html',
+    styleUrls: ['./prompt.component.scss'],
+    standalone: false
 })
 export class PromptComponent implements OnInit {
 

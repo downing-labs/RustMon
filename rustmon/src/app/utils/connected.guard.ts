@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RustService } from '../rustRCON/rust.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConnectedGuard implements CanActivate {
+export class ConnectedGuard  {
 
   constructor(private rustSrv: RustService, private navigation: Router) {
 

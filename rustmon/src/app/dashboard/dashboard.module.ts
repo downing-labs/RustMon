@@ -24,6 +24,7 @@ import { PlayerToolsComponent } from './player-tools/player-tools.component';
 import { UmodComponent } from './umod/umod.component';
 import { PermsComponent } from './perms/perms.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { TooltipModule } from 'primeng/tooltip';
 
 const routes: Routes = [
   {
@@ -59,6 +60,7 @@ const routes: Routes = [
     SidebarModule,
     PromptModule,
     DropdownModule,
+    TooltipModule,
     FontAwesomeModule,
   ]
 })

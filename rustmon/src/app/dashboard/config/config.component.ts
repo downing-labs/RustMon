@@ -6,9 +6,10 @@ import { RustService } from 'src/app/rustRCON/rust.service';
 import { REType, RustEvent } from 'src/app/rustRCON/RustEvent';
 
 @Component({
-  selector: 'app-config',
-  templateUrl: './config.component.html',
-  styleUrls: ['./config.component.scss']
+    selector: 'app-config',
+    templateUrl: './config.component.html',
+    styleUrls: ['./config.component.scss'],
+    standalone: false
 })
 export class ConfigComponent implements OnInit, OnDestroy {
 

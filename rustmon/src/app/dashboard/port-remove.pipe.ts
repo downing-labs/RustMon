@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'portRemove'
+    name: 'portRemove',
+    standalone: false
 })
 export class PortRemovePipe implements PipeTransform {
 
