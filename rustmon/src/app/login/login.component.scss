@@ -70,14 +70,17 @@ section {
 
 footer {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   width: 200px;
-  justify-content: space-around;
   margin-top: 16px;
   a {
     display: flex;
     color: #a4a6a7;
     text-decoration: none;
     align-items: center;
+    font-size: 13px;
     // discord
     // &:first-child {
     //   padding-right: 8px;
@@ -94,3 +97,12 @@ footer {
     }
   }
 }
+
+  .kofi-link {
+    color: #ff5e5b;
+    text-decoration: none;
+    font-size: 13px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }

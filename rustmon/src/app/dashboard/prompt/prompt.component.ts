@@ -36,7 +36,8 @@ export class PromptComponent implements OnInit {
   }
 
   ok() {
-    this.pSrv.close(this.promptInput);
+    const value = this.promptInput !== '' ? this.promptInput : this.promptPlaceholder;
+    this.pSrv.close(value);
     this.visible = false;
   }
 

@@ -8,7 +8,7 @@
         <div [class.active]="tab==0" (click)="tab=0" pTooltip="Manage permissions group">
           Groups
         </div>
-        <div [class.active]="tab==1" (click)="tab=1" class="wip" pTooltip="Manage permissions per user">
+        <div [class.active]="tab==1" (click)="tab=1" class="wip" *ngIf="false" pTooltip="Manage permissions per user">
           Players
         </div>
         <div [class.active]="tab==2" (click)="tab=2" class="wip" pTooltip="Export or import permissions configuration">

@@ -29,6 +29,9 @@
             <div [class.active]="tab==5" (click)="loadBatch();tab=5">
                 Batch
             </div>
+            <div [class.active]="tab==6" (click)="tab=6">
+                About
+            </div>
         </nav>
         <!-- FIRST TAB -->
         <section [hidden]="tab!=0">
@@ -672,6 +675,39 @@
         </section>
         <footer *ngIf="tab == 5">
             <button (click)="execBatch()" style="margin-right: 3px;">Execute</button>
+            <button (click)="doClose()">Close</button>
+        </footer>
+        <section [hidden]="tab != 6">
+            <div class="about-section">
+                <div class="about-block original">
+                    <h3>Original Project</h3>
+                    <p><strong>RustMon</strong> was originally developed by <strong>Alexander171294</strong> in 2021.</p>
+                    <p>
+                        <a href="https://github.com/alexander171294/RustMon" target="_blank">
+                            github.com/alexander171294/RustMon
+                        </a>
+                    </p>
+                    <p>Licensed under the Apache 2.0 License.</p>
+                </div>
+                <div class="about-divider"></div>
+                <div class="about-block fork">
+                    <h3>This Fork</h3>
+                    <p>Maintained and modernized by <strong>Downing Labs</strong>.</p>
+                    <p>Includes Angular 19 migration, NestJS 10, ioredis, resizable panes, dark theme fixes, and more.</p>
+                    <p>
+                        <a href="https://github.com/downing-labs/RustMon" target="_blank">
+                            github.com/downing-labs/RustMon
+                        </a>
+                    </p>
+                    <div class="kofi-wrapper">
+                        <a href="https://ko-fi.com/hackpig1974" target="_blank" class="kofi-btn">
+                            ☕ Support on Ko-fi
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer *ngIf="tab == 6">
             <button (click)="doClose()">Close</button>
         </footer>
     </article>

@@ -1,101 +1,103 @@
-# RustMon 1.6.0
+﻿# RustMon v2.0.0
 
-Rust admin panel (RustMonitor) See our 👉🏼 [Live Instance](https://rustmon.tercerpiso.net)
+A Rust game server admin panel — forked and modernized by [Downing Labs](https://github.com/downing-labs).
 
-### Current features
+> Originally developed by [Alexander171294](https://github.com/alexander171294/RustMon) in 2021. Licensed under Apache 2.0.
 
-- Multiple servers login record.
-- Simple full control (Chat, Players and Console) on single screen
-- Plugin enable/disable/reload and update checker
-- Permissions groups and export/import to apply on multiple servers
-- All configurations on a simple panel
-- Reboot with time warning
-- Players tools like autokick when high ping
+## Features
 
-### Roadmap
+- Multiple server login with session history
+- Single-screen dashboard: Chat, Players, and Console
+- Resizable panes — drag the dividers to adjust layout
+- Console with word wrap — long log lines no longer break the layout
+- Plugin manager with enable/disable/reload and update checker
+- Permissions groups with export/import
+- Full server configuration panel (settings, map, misc, security, population, batch commands)
+- Reboot with timed warning
+- Player tools including auto-kick on high ping
+- Steam profile integration (requires Steam API key)
+- About tab with project credits and Ko-fi support link
 
-- More player tools (auto respond commands, auto kick more options, Skip queue)
-- Discord login screen
-- Player permissions
-- Discord bot to send server information, bypass messages between chat and discord channel, assign groups to discord users
-- Commands memory with up arrow (rewrite last command sended) on console
-- RustMon Blacklist (a blacklist of players shared between rustmon clients)
+## What Changed in This Fork
 
-## Screenshots:
+- **Angular 13 → 19** — full incremental migration through each major version
+- **NestJS 8 → 10** — backend framework upgrade
+- **Redis client v3 → ioredis v5** — promise-native Redis client
+- **PrimeNG 13 → 19** — UI component library upgrade with dark theme
+- **Node 14/16 → 20** — updated base Docker images
+- **Docker Compose** — added root-level compose file for local and self-hosted deployment
+- **Removed Elastic APM** — dead code pointing at original author's private infrastructure
+- **Removed hardcoded credentials** — Steam API key and Redis password now come from environment variables
+- **Removed Hotjar tracking** — analytics pointing at original author's account
+- **Fixed console word wrap** — long log lines no longer expand the pane
+- **Added resizable panes** — drag dividers between Chat, Players, and Console
+- **Fixed restart button** — prompt was silently failing when using default values
+- **Fixed PrimeNG 19 breaking changes** — ToggleSwitch, TooltipModule, theme preset, output path
+- **Added About tab** — proper attribution for original author and this fork
 
-### Login
+## Getting Started
 
-![Login](https://i.imgur.com/C6AolI6.png)
+### Prerequisites
 
-### Dashboard
+- Docker and Docker Compose
+- A Steam API key (optional, for player profile enrichment)
+- A Rust server with RCON enabled
 
-![dashboard](https://i.imgur.com/LBMmO1U.png)
+### Quick Start
 
-### Server configurations
-
-![config server](https://i.imgur.com/4eBmGje.png)
-
-![config map](https://i.imgur.com/sH392gF.png)
-
-### Player details and search
-
-![player details](https://i.imgur.com/8oUQXug.png)
-
-### Player tools
-
-![player tools](https://i.imgur.com/nptYGlO.png)
-
-### Plugin manager
-
-![plugin manager](https://i.imgur.com/8qNMET3.png)
-
-### Permissions manager
-![permissions manager](https://i.imgur.com/bo3G41h.png)
-
-## Run and build
-
-Install dependencies:
-
-`npm i`
-
-Run local dev mode:
-
-`ng serve`
-
-Build redist package:
-
-`ng build --prod`
-
-or if you don't have angular installed
-
-`npm run buildprod`
-
-# run with docker in server:
-
-## Dashboard:
-
-```
-docker run -p 80:80 -itd alexander171294/rustmon:latest
+1. Clone the repo:
+```bash
+git clone https://github.com/downing-labs/RustMon.git
+cd RustMon
 ```
 
-Or see live instance in:
-
-[rustmon.tercerpiso.net](https://rustmon.tercerpiso.net)
-
-## Backend Service:
-
-Api for get steam-profile, api-geolocalization, rustmap info:
-
-First, in order to use your custom served api, you need to edit environment.prod.ts and change `http://rustmon-udata.tercerpiso.tech/` for your endpoint and rebuild docker image, or run ng build again with your changes.
-
-Second, you need to start a redis service (it is used for cache user data).
-
-Third, you need to run our docker image of rustmon-service with your api key and environments and expose in your endpoint:
-
-```
-docker run -p 80:3000 -e STEAM_API="YOUR-STEAM-API-KEY" -e CACHE_HOST="YOUR-REDIS-HOST" -e CACHE_AUTH="YOUR-REDIS-PASSWORD" -e CACHE_PORT="YOUR-REDIS-PORT" -itd alexander171294/rustmon-service:latest
+2. Copy the example env file and fill in your values:
+```bash
+cp .env.example .env
 ```
 
-### How to get my steam api key?
+3. Edit `.env`:
+```
+STEAM_API=your_steam_api_key_here
+REDIS_PASSWORD=your_redis_password_here
+```
 
-[See steam api key documentation](https://steamcommunity.com/dev/apikey)
+4. Build and start:
+```bash
+docker compose up -d
+```
+
+5. Open `http://localhost:8080` in your browser and connect to your Rust server via RCON.
+
+### Getting a Steam API Key
+
+Visit [https://steamcommunity.com/dev/apikey](https://steamcommunity.com/dev/apikey) and register with `localhost` as the domain for self-hosted use.
+
+### Environment Variables
+
+| Variable | Description | Default |
+|---|---|---|
+| `STEAM_API` | Steam Web API key for player profile lookups | required |
+| `REDIS_PASSWORD` | Password for Redis cache | `rustmon` |
+
+## Roadmap
+
+These features exist in the original codebase as stubs or were planned but not completed. They are hidden in this fork until implemented:
+
+- [ ] **Player permissions per user** — assign Oxide permissions directly to individual players (Permissions → Players tab)
+- [ ] **Player restrictions** — auto-kick players with private profiles, VAC bans, or excessive ping (Player Tools → Restrictions tab)
+- [ ] **In-game bot** — auto-respond to chat commands like `!pop`, `!wipe`, custom responses (Player Tools → In Game BOT tab)
+- [ ] **Auto-skip queue** — manage a list of players who automatically bypass the join queue (Player Tools → Auto-skip Queue tab)
+- [ ] **Discord bot integration** — bridge chat between Discord and the server, assign groups to Discord users
+- [ ] **Console command history** — recall previous commands with the up arrow key
+- [ ] **RustMon Blacklist** — shared blacklist of players across RustMon instances
+
+## Support
+
+If this fork has been useful to you, consider supporting development:
+
+☕ [Ko-fi: hackpig1974](https://ko-fi.com/hackpig1974)
+
+## License
+
+Apache 2.0 — see [LICENSE](LICENSE) for details.
