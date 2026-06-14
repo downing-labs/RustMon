@@ -322,3 +322,102 @@ button.mini {
   height: 35px;
   padding: 5px;
 }
+
+/* Connection status pill */
+.connection-status {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  margin: 0 8px;
+  vertical-align: middle;
+}
+.status-connected {
+  color: #4caf50;
+}
+.status-disconnected {
+  color: #f44336;
+  animation: pulse 1.2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Reconnection overlay */
+.reconnect-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.reconnect-box {
+  background: #1e1d19;
+  border: 1px solid #cd412b;
+  border-radius: 10px;
+  padding: 40px;
+  text-align: center;
+  color: wheat;
+  min-width: 360px;
+  box-shadow: 0 0 40px rgba(205, 65, 43, 0.3);
+  h2 {
+    margin: 10px 0 5px;
+    color: #cd412b;
+    font-size: 22px;
+  }
+  p {
+    color: #a0a0a0;
+    margin: 5px 0;
+    font-size: 13px;
+  }
+  button {
+    margin-top: 20px;
+    background: transparent;
+    border: 1px solid #cd412b;
+    color: #cd412b;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    &:hover {
+      background: #cd412b;
+      color: white;
+    }
+  }
+}
+.reconnect-icon {
+  font-size: 40px;
+  margin-bottom: 5px;
+}
+.reconnect-countdown {
+  font-size: 52px;
+  font-weight: bold;
+  color: #cd412b;
+  line-height: 1;
+  margin: 10px 0;
+}
+.reconnect-attempt {
+  font-size: 12px;
+  color: #666 !important;
+}
+.reconnect-bar {
+  width: 100%;
+  height: 4px;
+  background: #333;
+  border-radius: 2px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+.reconnect-bar-inner {
+  height: 100%;
+  background: #cd412b;
+  transition: width 1s linear;
+  border-radius: 2px;
+}

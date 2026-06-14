@@ -5,6 +5,7 @@ import { RustService } from '../rustRCON/rust.service';
 import { REType } from '../rustRCON/RustEvent';
 import { HashParser } from '../utils/hasParser';
 import { ConectionData, ConnectionHistoryService } from './connection-history.service';
+import { VersionCheckService, VersionInfo } from '../api/version-check.service';
 
 @Component({
     selector: 'app-login',
@@ -18,14 +19,16 @@ export class LoginComponent implements OnInit {
   public rconPort: number = 0;
   public rconPasswd: string = '';
   public loginLoading: boolean = false;
-
   public connections: ConectionData[] = [];
   public connectionSelected: number = 0;
+  public versionInfo: VersionInfo | null = null;
+  public showUpdateBanner: boolean = false;
 
   constructor(private rustSrv: RustService,
               private connectionHistory: ConnectionHistoryService,
               private messageService: MessageService,
-              private router: Router) { }
+              private router: Router,
+              public versionSrv: VersionCheckService) { }
 
   ngOnInit() {
     this.connections = this.connectionHistory.getServerList();
@@ -42,6 +45,19 @@ export class LoginComponent implements OnInit {
         this.rconPasswd = params.password;
       }
     }
+    if (!this.versionSrv.isDismissed()) {
+      this.versionSrv.checkForUpdate().subscribe(info => {
+        this.versionInfo = info;
+        if (info.hasUpdate) {
+          this.showUpdateBanner = true;
+        }
+      });
+    }
+  }
+
+  dismissBanner() {
+    this.showUpdateBanner = false;
+    this.versionSrv.dismiss();
   }
 
   previousSessionLoad(evt: any, idConn: number) {

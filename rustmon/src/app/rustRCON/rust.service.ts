@@ -15,11 +15,17 @@ export class RustService {
 
   private connected: boolean = false;
   private connectionString: string = '';
+  private lastIP: string = '';
+  private lastPort: number = 0;
+  private lastPassword: string = '';
 
   constructor(private sck: SocketService, private rustEvents: RustEventsService) { }
 
   connect(serverIP: string, rconPort: number, rconPasswd: string): EventEmitter<RustEvent> {
     this.connectionString = `${serverIP}`;
+    this.lastIP = serverIP;
+    this.lastPort = rconPort;
+    this.lastPassword = rconPasswd;
     const connectionEvt = this.sck.connect('ws://' + serverIP + ':' + rconPort + '/' + rconPasswd);
     if(connectionEvt) {
       connectionEvt.subscribe(evt => {
@@ -54,6 +60,11 @@ export class RustService {
       }, 1000);
     }
     return this.evtRust;
+  }
+
+  reconnect(): EventEmitter<RustEvent> {
+    this.sck.disconnect();
+    return this.connect(this.lastIP, this.lastPort, this.lastPassword);
   }
 
   public frontThreadReady() {

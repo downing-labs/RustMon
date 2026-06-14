@@ -29,7 +29,7 @@
             <div [class.active]="tab==5" (click)="loadBatch();tab=5">
                 Batch
             </div>
-            <div [class.active]="tab==6" (click)="tab=6">
+            <div [class.active]="tab==6" (click)="tab=6; loadVersionInfo()">
                 About
             </div>
         </nav>
@@ -689,7 +689,6 @@
                     </p>
                     <p>Licensed under the Apache 2.0 License.</p>
                 </div>
-                <div class="about-divider"></div>
                 <div class="about-block fork">
                     <h3>This Fork</h3>
                     <p>Maintained and modernized by <strong>Downing Labs</strong>.</p>
@@ -699,6 +698,14 @@
                             github.com/downing-labs/RustMon
                         </a>
                     </p>
+                    <p class="version-current">Current version: <strong>{{ versionInfo?.currentVersion || '2.0.0' }}</strong></p>
+                    <div *ngIf="versionInfo?.hasUpdate" class="version-update-notice">
+                        🔔 <strong>v{{ versionInfo?.latestVersion }} is available!</strong>
+                        <a [href]="versionInfo?.releaseUrl" target="_blank">Download from GitHub →</a>
+                    </div>
+                    <div *ngIf="versionInfo && !versionInfo.hasUpdate" class="version-uptodate">
+                        ✅ You are running the latest version.
+                    </div>
                     <div class="kofi-wrapper">
                         <a href="https://ko-fi.com/hackpig1974" target="_blank" class="kofi-btn">
                             ☕ Support on Ko-fi

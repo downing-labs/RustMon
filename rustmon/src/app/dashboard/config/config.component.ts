@@ -4,6 +4,7 @@ import { MapData } from 'src/app/api/MapDataDto';
 import { UserDataService } from 'src/app/api/user-data.service';
 import { RustService } from 'src/app/rustRCON/rust.service';
 import { REType, RustEvent } from 'src/app/rustRCON/RustEvent';
+import { VersionCheckService, VersionInfo } from 'src/app/api/version-check.service';
 
 @Component({
     selector: 'app-config',
@@ -80,9 +81,11 @@ export class ConfigComponent implements OnInit, OnDestroy {
   private subCfg?: Subscription;
 
   public tab = 0;
+  public versionInfo: VersionInfo | null = null;
 
   constructor(private rustSrv: RustService,
-              private userDataSrv: UserDataService) { }
+              private userDataSrv: UserDataService,
+              private versionSrv: VersionCheckService) { }
 
   ngOnInit() {
     this.subCfg = this.rustSrv.getEvtRust().subscribe((d: RustEvent) => {
@@ -343,6 +346,12 @@ export class ConfigComponent implements OnInit, OnDestroy {
   savePop() {
     this.applySec();
     this.rustSrv.sendCommand('server.writecfg');
+  }
+
+  loadVersionInfo() {
+    this.versionSrv.checkForUpdate().subscribe(info => {
+      this.versionInfo = info;
+    });
   }
 
   loadBatch() {

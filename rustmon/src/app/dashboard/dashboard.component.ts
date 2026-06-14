@@ -36,6 +36,56 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private dragStartX: number = 0;
   private dragStartWidths: number[] = [];
 
+  // reconnection
+  public reconnecting: boolean = false;
+  public reconnectAttempt: number = 0;
+  public reconnectCountdown: number = 5;
+  public readonly MAX_RECONNECT_ATTEMPTS = 12;
+  private reconnectTimer: any;
+  private countdownTimer: any;
+
+  startReconnection() {
+    this.reconnecting = true;
+    this.reconnectAttempt = 0;
+    this.attemptReconnect();
+  }
+
+  attemptReconnect() {
+    this.reconnectAttempt++;
+    this.reconnectCountdown = 5;
+
+    if (this.reconnectAttempt > this.MAX_RECONNECT_ATTEMPTS) {
+      this.reconnecting = false;
+      clearInterval(this.countdownTimer);
+      this.router.navigateByUrl('/login');
+      return;
+    }
+
+    clearInterval(this.countdownTimer);
+    this.countdownTimer = setInterval(() => {
+      this.reconnectCountdown--;
+      if (this.reconnectCountdown <= 0) {
+        clearInterval(this.countdownTimer);
+        this.tryConnect();
+      }
+    }, 1000);
+  }
+
+  tryConnect() {
+    const sub = this.rustSrv.reconnect().subscribe(d => {
+      if (d.type === REType.CONNECTED) {
+        sub.unsubscribe();
+        this.reconnecting = false;
+        this.reconnectAttempt = 0;
+        clearInterval(this.countdownTimer);
+        this.rustSrv.frontThreadReady();
+      } else if (d.type === REType.DISCONNECT || d.type === REType.ERROR) {
+        sub.unsubscribe();
+        this.attemptReconnect();
+      }
+    });
+  }
+
   startDrag(event: MouseEvent, paneIndex: number) {
     this.draggingPane = paneIndex;
     this.dragStartX = event.clientX;
@@ -89,11 +139,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('chatCompo', {static: false}) chatCompo?: ChatComponent;
   @ViewChild('console', {static: false}) consoleBox: any;
 
-  constructor(private rustSrv: RustService,
+  constructor(public rustSrv: RustService,
               private psSrv: PlayerStorageService,
               private playerTool: PlayerToolsService,
               private messageService: MessageService,
-              private router: Router,
+              public router: Router,
               private promptSrv: PromptService,
               private readonly udSrv: UserDataService) {
     const api = localStorage.getItem('api-endpoint')
@@ -181,9 +231,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }, 100);
       }
       if (d.type === REType.DISCONNECT || d.type === REType.ERROR) {
-        console.log('ERROR', d);
-        this.messageService.add({severity: 'error', summary: 'Disconnected', detail: 'Disconnected from server.'});
-        this.router.navigateByUrl('/login');
+        if (!this.reconnecting) {
+          this.startReconnection();
+        }
       }
     });
     this.rustSrv.frontThreadReady();

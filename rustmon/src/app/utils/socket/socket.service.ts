@@ -11,6 +11,14 @@ export class SocketService {
 
   constructor() { }
 
+  disconnect() {
+    if (this.ws) {
+      this.ws.onclose = null;
+      this.ws.close();
+      this.ws = undefined;
+    }
+  }
+
   connect(url: string): EventEmitter<EventSck> | undefined {
     try {
       this.ws = new WebSocket(url);
