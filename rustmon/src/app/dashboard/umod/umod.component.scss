@@ -10,7 +10,10 @@ section {
   justify-content: center;
   align-items: center;
   article {
-    width: 50vw;
+    width: 80vw;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
     background: #2b2924;
     header {
       background: #181818;
@@ -28,6 +31,9 @@ section {
       }
     }
     main {
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
       input {
         margin: 5px;
         width: calc(100% - 10px);

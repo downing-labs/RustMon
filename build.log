@@ -1,12 +1,15 @@
-time="2026-06-14T13:42:12-06:00" level=warning msg="Docker Compose is configured to build using Bake, but buildx isn't installed"
+time="2026-06-14T15:02:06-06:00" level=warning msg="Docker Compose is configured to build using Bake, but buildx isn't installed"
 #0 building with "default" instance using docker driver
+
+#1 [backend internal] load build definition from Dockerfile
+#1 DONE 0.0s
 
 #1 [backend internal] load build definition from Dockerfile
 #1 transferring dockerfile: 209B 0.0s done
 #1 DONE 0.0s
 
 #2 [backend internal] load metadata for docker.io/library/node:20-alpine
-#2 DONE 0.3s
+#2 DONE 0.4s
 
 #3 [backend internal] load .dockerignore
 #3 transferring context: 72B 0.0s done
@@ -51,7 +54,7 @@ time="2026-06-14T13:42:12-06:00" level=warning msg="Docker Compose is configured
 #14 DONE 0.0s
 
 #2 [frontend internal] load metadata for docker.io/library/node:20-alpine
-#2 DONE 0.5s
+#2 DONE 0.6s
 
 #15 [frontend internal] load .dockerignore
 #15 transferring context: 72B 0.0s done
@@ -64,88 +67,33 @@ time="2026-06-14T13:42:12-06:00" level=warning msg="Docker Compose is configured
 #16 DONE 0.0s
 
 #17 [frontend internal] load build context
-#17 transferring context: 969.74kB 0.4s done
-#17 DONE 0.4s
+#17 transferring context: 4.93kB 0.3s done
+#17 DONE 0.3s
 
-#18 [frontend build 2/6] WORKDIR /usr/src/app
+#18 [frontend build 3/6] COPY package.json package-lock.json ./
 #18 CACHED
 
-#19 [frontend build 3/6] COPY package.json package-lock.json ./
-#19 DONE 0.0s
+#19 [frontend build 4/6] RUN npm install --legacy-peer-deps
+#19 CACHED
 
-#20 [frontend build 4/6] RUN npm install --legacy-peer-deps
-#20 3.564 npm warn deprecated tar@6.2.1: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
-#20 4.186 npm warn deprecated uuid@8.3.2: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
-#20 6.708 npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
-#20 6.713 npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
-#20 10.57 npm warn deprecated @primeng/themes@19.1.4: Deprecated. This package is no longer maintained. Please migrate to @primeuix/themes: https://www.npmjs.com/package/@primeuix/themes
-#20 11.80 
-#20 11.80 added 976 packages, and audited 977 packages in 12s
-#20 11.80 
-#20 11.80 175 packages are looking for funding
-#20 11.80   run `npm fund` for details
-#20 11.84 
-#20 11.84 27 vulnerabilities (1 low, 7 moderate, 17 high, 2 critical)
-#20 11.84 
-#20 11.84 To address issues that do not require attention, run:
-#20 11.84   npm audit fix
-#20 11.84 
-#20 11.84 To address all issues (including breaking changes), run:
-#20 11.84   npm audit fix --force
-#20 11.84 
-#20 11.84 Run `npm audit` for details.
-#20 11.84 npm notice
-#20 11.84 npm notice New major version of npm available! 10.8.2 -> 11.17.0
-#20 11.84 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.17.0
-#20 11.84 npm notice To update run: npm install -g npm@11.17.0
-#20 11.84 npm notice
-#20 DONE 12.2s
+#20 [frontend build 5/6] COPY . .
+#20 CACHED
 
-#21 [frontend build 5/6] COPY . .
-#21 DONE 0.0s
+#21 [frontend build 6/6] RUN npm run build -- --configuration production
+#21 CACHED
 
-#22 [frontend build 6/6] RUN npm run build -- --configuration production
-#22 0.258 
-#22 0.258 > rustmon@0.0.0 build
-#22 0.258 > ng build --configuration production
-#22 0.258 
-#22 0.765 ❯ Building...
-#22 8.296 ✔ Building...
-#22 8.297 Initial chunk files   | Names            |  Raw size | Estimated transfer size
-#22 8.297 chunk-DFCJFSRZ.js     | -                | 380.37 kB |               100.49 kB
-#22 8.297 main-CELPZN3U.js      | main             | 166.11 kB |                26.29 kB
-#22 8.297 styles-DSBHDWDT.css   | styles           | 153.40 kB |                15.42 kB
-#22 8.297 chunk-ZYHOLXCV.js     | -                |  59.04 kB |                16.33 kB
-#22 8.297 polyfills-5FDKUQTZ.js | polyfills        |  34.61 kB |                11.36 kB
-#22 8.297 
-#22 8.297                       | Initial total    | 793.53 kB |               169.89 kB
-#22 8.297 
-#22 8.297 Lazy chunk files      | Names            |  Raw size | Estimated transfer size
-#22 8.297 chunk-2MAIUWQG.js     | dashboard-module | 814.51 kB |               132.05 kB
-#22 8.297 chunk-ONDDINRD.js     | -                |  41.47 kB |                10.31 kB
-#22 8.297 chunk-5Z4NSMAQ.js     | login-module     |  12.33 kB |                 4.24 kB
-#22 8.297 
-#22 8.297 Application bundle generation complete. [7.530 seconds]
-#22 8.297 
-#22 8.299 ▲ [WARNING] bundle initial exceeded maximum budget. Budget 500.00 kB was not met by 293.53 kB with a total of 793.53 kB.
-#22 8.299 
-#22 8.299 
-#22 8.301 Output location: /usr/src/app/dist/rustmon
-#22 8.301 
-#22 DONE 8.4s
+#22 [frontend stage-1 2/3] COPY --from=build /usr/src/app/dist/rustmon/browser /usr/share/nginx/html
+#22 CACHED
 
-#16 [frontend stage-1 1/3] FROM docker.io/library/nginx:alpine
-#16 CACHED
-
-#23 [frontend stage-1 2/3] COPY --from=build /usr/src/app/dist/rustmon/browser /usr/share/nginx/html
-#23 DONE 0.0s
+#23 [frontend build 2/6] WORKDIR /usr/src/app
+#23 CACHED
 
 #24 [frontend stage-1 3/3] COPY --from=build /usr/src/app/nginx.default.conf /etc/nginx/conf.d/default.conf
-#24 DONE 0.0s
+#24 CACHED
 
 #25 [frontend] exporting to image
-#25 exporting layers 0.0s done
-#25 writing image sha256:72c3098f60fa043b4c3585313131bb1467dc14438ccb580854cf865416980c43 done
+#25 exporting layers done
+#25 writing image sha256:0a0bea21edcd433a1c894d88181e5a908117d2b2afcce00a31451659ba73bed4 done
 #25 naming to docker.io/library/rustmon-frontend done
 #25 DONE 0.0s
 

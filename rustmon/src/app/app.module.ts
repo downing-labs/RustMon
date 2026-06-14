@@ -24,6 +24,6 @@ import Aura from '@primeng/themes/aura';
         MessageService,
         ConfirmationService,
         provideHttpClient(withInterceptorsFromDi()),
-        providePrimeNG({ theme: { preset: Aura } })
+        providePrimeNG({ theme: { preset: Aura, options: { darkModeSelector: '.app-dark' } } })
     ] })
 export class AppModule { }

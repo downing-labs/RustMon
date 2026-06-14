@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+﻿/* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
 body,html {
     margin: 0;
@@ -282,3 +282,32 @@ body,html {
 .wip {
   opacity: 0.75;
 }
+
+/* PrimeNG dark overrides */
+.p-datatable { background: transparent; color: wheat; }
+.p-datatable .p-datatable-header,
+.p-datatable .p-datatable-thead > tr > th {
+  background: #333333 !important; color: wheat !important; border-color: #1d1b18 !important;
+}
+.p-datatable .p-datatable-tbody > tr {
+  background: #1e1d19 !important; color: wheat !important;
+}
+.p-datatable .p-datatable-tbody > tr:nth-child(even) { background: #151311 !important; }
+.p-datatable .p-datatable-tbody > tr > td { border-color: #333333 !important; }
+.p-datatable .p-datatable-tbody > tr:hover { background: #292929 !important; }
+.p-paginator {
+  background: #1e1d19 !important; color: wheat !important; border-color: #333333 !important;
+}
+.p-paginator .p-paginator-page,
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-last {
+  background: transparent !important; color: wheat !important; border-color: #333333 !important;
+}
+.p-paginator .p-paginator-page.p-highlight {
+  background: #cd412b !important; color: white !important; border-color: #cd412b !important;
+}
+.p-paginator button:hover { background: #333333 !important; }
+.p-datatable .p-sortable-column .p-sortable-column-icon { color: #6e6f70 !important; }
+.p-datatable .p-sortable-column:hover { background: #2a2a2a !important; color: wheat !important; }
