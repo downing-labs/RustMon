@@ -35,6 +35,26 @@ A Rust game server admin panel — forked and modernized by [Downing Labs](https
 - **Fixed PrimeNG 19 breaking changes** — ToggleSwitch, TooltipModule, theme preset, output path
 - **Added About tab** — proper attribution for original author and this fork
 
+## Screenshots
+
+### Login
+![Login](docs/screenshots/login.png)
+
+### Dashboard
+![Dashboard](docs/screenshots/dashboard.png)
+
+### Server Configuration
+![Server Config](docs/screenshots/config-server.png)
+
+### About
+![About](docs/screenshots/config-about.png)
+
+### Plugin Manager
+![Plugins](docs/screenshots/plugins.png)
+
+### Permissions Manager
+![Permissions](docs/screenshots/permissions.png)
+
 ## Getting Started
 
 ### Prerequisites
