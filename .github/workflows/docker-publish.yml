@@ -1,0 +1,43 @@
+name: Build and Push to Docker Hub
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Build and push frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./rustmon
+          dockerfile: ./rustmon/Dockerfile
+          push: true
+          tags: |
+            damon1974/rustmon-frontend:latest
+            damon1974/rustmon-frontend:${{ steps.version.outputs.VERSION }}
+
+      - name: Build and push backend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./user-data-srv
+          dockerfile: ./user-data-srv/Dockerfile
+          push: true
+          tags: |
+            damon1974/rustmon-backend:latest
+            damon1974/rustmon-backend:${{ steps.version.outputs.VERSION }}
