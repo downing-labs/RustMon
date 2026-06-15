@@ -82,12 +82,43 @@ STEAM_API=your_steam_api_key_here
 REDIS_PASSWORD=your_redis_password_here
 ```
 
-4. Build and start:
+4. Pull and start:
 ```bash
 docker compose up -d
 ```
 
 5. Open `http://localhost:8080` in your browser and connect to your Rust server via RCON.
+
+### Upgrading
+
+```bash
+docker compose down
+docker compose pull
+docker compose up -d
+```
+
+No rebuild required — just pull the latest images from Docker Hub.
+
+### Building Locally
+
+If you want to modify the code and build your own images:
+
+```bash
+git clone https://github.com/downing-labs/RustMon.git
+cd RustMon
+cp .env.example .env
+# Edit .env with your values
+docker compose build
+docker compose up -d
+```
+
+To rebuild after making changes:
+
+```bash
+docker compose down
+docker compose build
+docker compose up -d
+```
 
 ### Getting a Steam API Key
 
