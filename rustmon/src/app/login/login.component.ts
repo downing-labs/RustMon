@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { RustService } from '../rustRCON/rust.service';
@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
               private connectionHistory: ConnectionHistoryService,
               private messageService: MessageService,
               private router: Router,
-              public versionSrv: VersionCheckService) { }
+              public versionSrv: VersionCheckService,
+              private zone: NgZone) { }
 
   ngOnInit() {
     this.connections = this.connectionHistory.getServerList();
@@ -47,10 +48,12 @@ export class LoginComponent implements OnInit {
     }
     if (!this.versionSrv.isDismissed()) {
       this.versionSrv.checkForUpdate().subscribe(info => {
-        this.versionInfo = info;
-        if (info.hasUpdate) {
-          this.showUpdateBanner = true;
-        }
+        this.zone.run(() => {
+          this.versionInfo = info;
+          if (info.hasUpdate) {
+            this.showUpdateBanner = true;
+          }
+        });
       });
     }
   }

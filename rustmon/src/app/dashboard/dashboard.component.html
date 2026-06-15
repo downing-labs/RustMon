@@ -132,7 +132,10 @@
         <footer>
           <span>
             Forked &amp; Maintained by: <a href="https://github.com/downing-labs/RustMon" target="_blank" style="color: #cd412b;">Downing Labs</a> |
-            RustMon v2.0.0
+            <a *ngIf="versionInfo?.hasUpdate" [href]="versionInfo?.releaseUrl" target="_blank" class="dashboard-version-update">
+              🔔 New Version Available: v{{ versionInfo?.latestVersion }}
+            </a>
+            <span *ngIf="!versionInfo?.hasUpdate" style="color: #6e6f70;">RustMon v2.0.0</span>
             <span class="connection-status" [class.status-connected]="rustSrv.isConnected()" [class.status-disconnected]="!rustSrv.isConnected()">
               {{ rustSrv.isConnected() ? '● Connected' : '● Not Connected' }}
             </span>

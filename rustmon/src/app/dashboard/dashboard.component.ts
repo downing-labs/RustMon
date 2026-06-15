@@ -13,6 +13,7 @@ import { ChatComponent } from './chat/chat.component';
 import { PlayerToolsService } from './player-tools/player-tools.service';
 import { PromptData, PromptService } from './prompt/prompt.service';
 import { UserDataService } from '../api/user-data.service';
+import { VersionCheckService, VersionInfo } from '../api/version-check.service';
 import { Clipboard } from 'src/app/utils/clipboard';
 
 @Component({
@@ -29,6 +30,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public playerList?: PlayerWithStatus[];
   public consoleMessages: string[] = [];
   public connectionString: any;
+
+  // version check
+  public versionInfo: VersionInfo | null = null;
 
   // pane resizing
   public paneWidths: number[] = [1, 1, 1];
@@ -145,7 +149,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
               private messageService: MessageService,
               public router: Router,
               private promptSrv: PromptService,
-              private readonly udSrv: UserDataService) {
+              private readonly udSrv: UserDataService,
+              private versionSrv: VersionCheckService) {
     const api = localStorage.getItem('api-endpoint')
     if(api) {
       environment.uDataApi = api;
@@ -155,6 +160,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.connectionString = this.rustSrv.getConnectionString();
+    this.versionSrv.checkForUpdate().subscribe(info => {
+      this.versionInfo = info;
+    });
     this.subscription = this.rustSrv.getEvtRust().subscribe(d => {
       if (d.type === REType.UNKOWN) {
         // show in console.

@@ -171,11 +171,14 @@ footer {
   z-index: 100;
 }
 .version-new-pill {
-  background: #cd412b;
-  color: white;
-  padding: 1px 8px;
+  background: #4caf50;
+  color: white !important;
+  padding: 4px 12px;
   border-radius: 10px;
-  font-size: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none !important;
+  cursor: pointer;
   font-weight: bold;
 }
 
@@ -183,7 +186,12 @@ footer {
   color: #a0a0a0;
   font-size: 13px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
+
+
+
+
 
