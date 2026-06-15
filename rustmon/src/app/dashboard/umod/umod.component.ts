@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { UserDataService } from 'src/app/api/user-data.service';
 import { RustEvent } from 'src/app/rustRCON/RustEvent';
 import { RustService } from 'src/app/rustRCON/rust.service';
@@ -9,7 +9,7 @@ import { RustService } from 'src/app/rustRCON/rust.service';
     styleUrls: ['./umod.component.scss'],
     standalone: false
 })
-export class UmodComponent implements OnInit {
+export class UmodComponent implements OnInit, OnChanges {
 
   @Output() close = new EventEmitter<void>();
   @Input() visible: boolean = false;
@@ -29,6 +29,16 @@ export class UmodComponent implements OnInit {
     { field: 'time', header: 'Load Time', width: '100px' },
     { field: 'actions', header: 'Actions', width: '300px' },
   ];
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['visible'] && changes['visible'].currentValue === true) {
+      this.refresh();
+    }
+  }
+
+  refresh(): void {
+    this.rustSrv.oplugins();
+  }
 
   ngOnInit(): void {
     this.rustSrv.oplugins();
@@ -63,7 +73,8 @@ export class UmodComponent implements OnInit {
             if(plugin.author?.trim() != update.meta.author) {
               // author changed, noted silently
             }
-            if(this.vStd(plugin.version?.trim() ?? '0.0.0') != this.vStd(update.meta.latest_release_version?.trim() ?? '0.0.0')) {
+            const localVersion = plugin.version?.trim() ?? '';
+            if(localVersion && this.isNewer(update.meta.latest_release_version?.trim() ?? '0.0.0', localVersion)) {
               plugin.updates = true;
               plugin.latest_release_version = update.meta.latest_release_version;
               updates = true;
@@ -91,6 +102,21 @@ export class UmodComponent implements OnInit {
 
   getStringFromInputEvent(evt: any): string {
     return evt.target.value;
+  }
+
+  isNewer(remote: string, local: string): boolean {
+    try {
+      const r = remote.split('.').map(Number);
+      const l = local.split('.').map(Number);
+      const len = Math.max(r.length, l.length);
+      for (let i = 0; i < len; i++) {
+        if ((r[i] || 0) > (l[i] || 0)) return true;
+        if ((r[i] || 0) < (l[i] || 0)) return false;
+      }
+      return false;
+    } catch {
+      return false;
+    }
   }
 
   vStd(version: string): string {
