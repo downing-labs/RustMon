@@ -12,6 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -27,6 +33,7 @@ jobs:
         with:
           context: ./rustmon
           dockerfile: ./rustmon/Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             damon1974/rustmon-frontend:latest
@@ -37,7 +44,15 @@ jobs:
         with:
           context: ./user-data-srv
           dockerfile: ./user-data-srv/Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             damon1974/rustmon-backend:latest
             damon1974/rustmon-backend:${{ steps.version.outputs.VERSION }}
+
+      - name: Summary
+        run: |
+          echo "## Docker Images Published" >> $GITHUB_STEP_SUMMARY
+          echo "- \`damon1974/rustmon-frontend:${{ steps.version.outputs.VERSION }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`damon1974/rustmon-backend:${{ steps.version.outputs.VERSION }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- Both tagged as \`latest\`" >> $GITHUB_STEP_SUMMARY
