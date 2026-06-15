@@ -185,7 +185,7 @@ export class ConfigComponent implements OnInit, OnDestroy {
         } else if(d.raw.indexOf('hotairballoon.population:') === 0) {
           this.populations.hotairballoon = parseInt(d.raw.split(' ').slice(1).join(' ').split('"').join(''));
         } else {
-          console.log('unknown config', d.raw);
+          // unknown config key, ignored
         }
       }
     });

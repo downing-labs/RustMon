@@ -221,10 +221,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       }
       if (d.type === REType.UNKOWN) {
-        console.log(d)
         if(d.raw.startsWith('Oxide.Rust Version: ')) {
           this.oxide = d.raw.replace('Oxide.Rust Version: ', '').split('\n')[0];
-          console.log('Oxide version:', this.oxide);
         }
         this.consoleMessages.push(d.raw.trim());
         setTimeout(() => {
@@ -234,7 +232,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (d.type === REType.BAN_LIST) {
         this.consoleMessages.push('Banlist: ' + d.raw);
         setTimeout(() => {
-          console.log(this.consoleBox);
           this.consoleBox.nativeElement.scrollTop = this.consoleBox.nativeElement.scrollHeight;
         }, 100);
       }

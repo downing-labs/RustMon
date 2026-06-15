@@ -127,9 +127,6 @@ export class RustService {
   }
 
   processMessage(message: MessageEvent, body: any) {
-    if (body.Identifier < 1000) {
-      console.log('==>', body);
-    }
     const re = new RustEvent();
     try {
       re.data = JSON.parse(body.Message);

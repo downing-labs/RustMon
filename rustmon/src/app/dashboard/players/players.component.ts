@@ -158,7 +158,6 @@ export class PlayersComponent implements OnInit {
       y: event.clientY + 20,
       opened: true
     };
-    console.log(event.offsetX, event);
   }
 
   doOwner(steamID: string, name: string) {
@@ -205,7 +204,6 @@ export class PlayersComponent implements OnInit {
 
   showPlayerData(evt: any, player: PlayerWithStatus, op: OverlayPanel) {
     this.playerClicked = player;
-    console.log(this.playerClicked);
     op.toggle(evt);
   }
 

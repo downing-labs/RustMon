@@ -28,7 +28,6 @@ export class PermsComponent implements OnInit {
     private confirmationService: ConfirmationService,) { }
 
   ngOnInit(): void {
-    console.log('INIT');
     this.rustSrv.getEvtRust().subscribe((d: RustEvent) => {
       if (d.type === REType.GROUPS) {
         const parts = d.raw.split('\n');

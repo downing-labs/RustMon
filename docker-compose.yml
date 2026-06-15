@@ -1,7 +1,9 @@
 services:
 
   frontend:
-    image: damon1974/rustmon-frontend:latest
+    build:
+      context: ./rustmon
+      dockerfile: Dockerfile
     ports:
       - "8080:80"
     depends_on:
@@ -9,7 +11,9 @@ services:
     restart: unless-stopped
 
   backend:
-    image: damon1974/rustmon-backend:latest
+    build:
+      context: ./user-data-srv
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     depends_on:

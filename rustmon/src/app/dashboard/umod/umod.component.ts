@@ -60,10 +60,10 @@ export class UmodComponent implements OnInit {
           r.forEach((update: any) => {
             const plugin = this.plugins.find(p => p.id == update.id);
             if(!update.meta.slug) return;
-            if(plugin.author.trim() != update.meta.author) {
-              console.log(`El plugin ${plugin.name} tiene un nuevo autor: ${plugin.author} -> ${update.meta.author} https://umod.org/plugins/${update.meta.slug}`)
+            if(plugin.author?.trim() != update.meta.author) {
+              // author changed, noted silently
             }
-            if(this.vStd(plugin.version.trim()) != this.vStd(update.meta.latest_release_version.trim())) {
+            if(this.vStd(plugin.version?.trim() ?? '0.0.0') != this.vStd(update.meta.latest_release_version?.trim() ?? '0.0.0')) {
               plugin.updates = true;
               plugin.latest_release_version = update.meta.latest_release_version;
               updates = true;
@@ -78,15 +78,12 @@ export class UmodComponent implements OnInit {
         });
       }
       if(d.type == 1006) {
-        console.log('Plugin loaded', d.raw);
         this.rustSrv.oplugins();
       }
       if(d.type == 1007) {
-        console.log('Plugin unloaded', d.raw);
         this.rustSrv.oplugins();
       }
       if(d.type == 1008) {
-        console.log('Plugin reloaded', d.raw);
         this.rustSrv.oplugins();
       }
     });
@@ -129,7 +126,6 @@ export class UmodComponent implements OnInit {
       time: time,
       unloaded: unloaded
     }
-    console.log('Plugins loaded:', loaded, 'Plugins unloaded:', unloaded, 'Total size: ', size, 'Total time: ', time);
   }
 
   convertMBKBtoBytes(size: string): number {
