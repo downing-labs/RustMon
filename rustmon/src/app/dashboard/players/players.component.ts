@@ -2,7 +2,7 @@ import { PlayerStorageService } from './../../rustRCON/player-storage.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api/menuitem';
 import {MessageService, ConfirmationService} from 'primeng/api';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { Popover } from 'primeng/popover';
 import { Player, PlayerWithStatus } from 'src/app/rustRCON/Player';
 import { RustService } from 'src/app/rustRCON/rust.service';
 import { PromptData, PromptService } from '../prompt/prompt.service';
@@ -202,7 +202,7 @@ export class PlayersComponent implements OnInit {
     this.onlyOnlineEvt.emit(evt.checked);
   }
 
-  showPlayerData(evt: any, player: PlayerWithStatus, op: OverlayPanel) {
+  showPlayerData(evt: any, player: PlayerWithStatus, op: Popover) {
     this.playerClicked = player;
     op.toggle(evt);
   }

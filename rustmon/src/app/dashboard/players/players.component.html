@@ -45,9 +45,8 @@
 <p-toast position="top-right"></p-toast>
 <p-confirmDialog icon="pi pi-exclamation-triangle" [baseZIndex]="10000"></p-confirmDialog>
 
-<p-overlayPanel #opPlayer>
-  <ng-template pTemplate>
-    <div class="overlaypanel">
+<p-popover #opPlayer>
+  <div class="overlaypanel" *ngIf="playerClicked && playerClicked.steamData">
       <div class="parameters">
         <p>
           <img [src]="playerClicked.steamData.avatar" class="avatar"/>
@@ -68,45 +67,29 @@
         </p>
         <p *ngIf="playerClicked?.vac">
           <label>Community Banned</label>
-          <span class="yes" *ngIf="playerClicked?.vac?.CommunityBanned">
-            YES
-          </span>
-          <span class="no" *ngIf="!playerClicked?.vac?.CommunityBanned">
-            NO
-          </span>
+          <span class="yes" *ngIf="playerClicked?.vac?.CommunityBanned">YES</span>
+          <span class="no" *ngIf="!playerClicked?.vac?.CommunityBanned">NO</span>
         </p>
         <p *ngIf="playerClicked?.vac">
           <label>VAC Ban</label>
-          <span class="yes" *ngIf="playerClicked?.vac?.VACBanned">
-            YES ({{playerClicked?.vac?.NumberOfVACBans}})
-          </span>
-          <span class="no" *ngIf="!playerClicked?.vac?.VACBanned">
-            NO
-          </span>
+          <span class="yes" *ngIf="playerClicked?.vac?.VACBanned">YES ({{playerClicked?.vac?.NumberOfVACBans}})</span>
+          <span class="no" *ngIf="!playerClicked?.vac?.VACBanned">NO</span>
         </p>
         <p *ngIf="playerClicked?.vac">
           <label>Days since last ban</label>
-          <span>
-            {{playerClicked?.vac?.DaysSinceLastBan}}
-          </span>
+          <span>{{playerClicked?.vac?.DaysSinceLastBan}}</span>
         </p>
         <p *ngIf="playerClicked?.vac">
           <label>Game bans</label>
-          <span>
-            {{playerClicked?.vac?.NumberOfGameBans}}
-          </span>
+          <span>{{playerClicked?.vac?.NumberOfGameBans}}</span>
         </p>
         <p *ngIf="playerClicked?.vac">
           <label>Economy ban</label>
-          <span>
-            {{playerClicked?.vac?.EconomyBan}}
-          </span>
+          <span>{{playerClicked?.vac?.EconomyBan}}</span>
         </p>
       </div>
       <div class="notes">
         <textarea placeholder="Notes for this player" [(ngModel)]="playerClicked.notes" (input)="saveNote(playerClicked.notes, playerClicked.steamData.steamid)"></textarea>
       </div>
-    </div>
-
-  </ng-template>
-</p-overlayPanel>
+  </div>
+</p-popover>

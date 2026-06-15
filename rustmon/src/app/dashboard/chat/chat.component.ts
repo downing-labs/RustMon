@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { Popover } from 'primeng/popover';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ChatMessage } from 'src/app/rustRCON/ChatMessage';
 import { RustService } from 'src/app/rustRCON/rust.service';
@@ -34,7 +34,7 @@ export class ChatComponent implements OnInit {
 
   @Input() chatMessages?: ChatMessage[];
   @Input() showTeamMessages?: boolean;
-  clickedMessage?: ChatMessage;
+  clickedMessage: ChatMessage = new ChatMessage();
   contextMessage?: ChatMessage;
 
   @ViewChild('chat', {static: true}) chatBox: any;
@@ -52,7 +52,7 @@ export class ChatComponent implements OnInit {
     return user.userData && user.userData.avatarmedium ? user.userData.avatarmedium : '/favicon.png';
   }
 
-  showData(evt: any, message: ChatMessage, overlaypanel: OverlayPanel) {
+  showData(evt: any, message: ChatMessage, overlaypanel: Popover) {
     this.clickedMessage = message;
     overlaypanel.toggle(evt);
   }

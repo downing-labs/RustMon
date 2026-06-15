@@ -13,7 +13,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PopoverModule } from 'primeng/popover';
 import { SidebarModule } from 'primeng/sidebar';
 
 import { ChatComponent } from './chat/chat.component';
@@ -56,7 +56,7 @@ const routes: Routes = [
     ContextMenuModule,
     ToastModule,
     ConfirmDialogModule,
-    OverlayPanelModule,
+    PopoverModule,
     SidebarModule,
     PromptModule,
     DropdownModule,

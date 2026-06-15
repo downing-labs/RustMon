@@ -63,31 +63,27 @@ A Rust game server admin panel — forked and modernized by [Downing Labs](https
 - A Steam API key (optional, for player profile enrichment)
 - A Rust server with RCON enabled
 
-### Quick Start
+### Quick Start (Docker Hub — Recommended)
 
-1. Clone the repo:
+The easiest way to run RustMon. No build tools or Node.js required.
+
+1. Download the production compose file:
 ```bash
-git clone https://github.com/downing-labs/RustMon.git
-cd RustMon
+curl -o docker-compose.yml https://raw.githubusercontent.com/downing-labs/RustMon/master/docker-compose.prod.yml
 ```
 
-2. Copy the example env file and fill in your values:
-```bash
-cp .env.example .env
-```
-
-3. Edit `.env`:
+2. Create your `.env` file:
 ```
 STEAM_API=your_steam_api_key_here
 REDIS_PASSWORD=your_redis_password_here
 ```
 
-4. Pull and start:
+3. Pull and start:
 ```bash
 docker compose up -d
 ```
 
-5. Open `http://localhost:8080` in your browser and connect to your Rust server via RCON.
+4. Open `http://localhost:8080` and connect to your Rust server via RCON.
 
 ### Upgrading
 
@@ -97,9 +93,7 @@ docker compose pull
 docker compose up -d
 ```
 
-No rebuild required — just pull the latest images from Docker Hub.
-
-### Building Locally
+### Building Locally (Developers)
 
 If you want to modify the code and build your own images:
 

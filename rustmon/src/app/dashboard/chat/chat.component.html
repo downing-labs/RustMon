@@ -6,12 +6,12 @@
     {{message.Message}}
   </li>
 </ul>
-<p-overlayPanel #op>
-  <ng-template pTemplate>
+<p-popover #op>
+  <ng-container *ngIf="clickedMessage">
       Channel:
       <span *ngIf="clickedMessage.Channel == 0">Global Chat</span>
       <span *ngIf="clickedMessage.Channel > 0">Team Chat ({{clickedMessage.Channel}})</span><br />
       SteamID: {{clickedMessage.UserId}}
-  </ng-template>
-</p-overlayPanel>
+  </ng-container>
+</p-popover>
 <p-contextMenu [target]="chat" [model]="ctxMenu"></p-contextMenu>
